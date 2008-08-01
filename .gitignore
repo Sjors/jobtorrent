@@ -6,6 +6,8 @@ doc/app
 
 db/*.sqlite3
 
-**/*.swp
+*.swp
+*/*.swp
+*/*/*.swp
 
 config/initializers/site_keys.rb
