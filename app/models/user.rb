@@ -1,7 +1,8 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  has_many :users
+  has_many :employers
+  has_many :employees
 
   include Authentication
   include Authentication::ByPassword
