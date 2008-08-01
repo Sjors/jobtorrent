@@ -7,3 +7,5 @@ doc/app
 db/*.sqlite3
 
 **/*.swp
+
+config/initializers/site_keys.rb
