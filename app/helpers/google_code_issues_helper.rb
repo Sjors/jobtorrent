@@ -1,0 +1,2 @@
+module GoogleCodeIssuesHelper
+end

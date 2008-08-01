@@ -1,0 +1,22 @@
+<h1>Listing google_code_issues</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th>Status</th>
+  </tr>
+
+<% for google_code_issue in @google_code_issues %>
+  <tr>
+    <td><%=h google_code_issue.url %></td>
+    <td><%=h google_code_issue.status %></td>
+    <td><%= link_to 'Show', google_code_issue %></td>
+    <td><%= link_to 'Edit', edit_google_code_issue_path(google_code_issue) %></td>
+    <td><%= link_to 'Destroy', google_code_issue, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New google_code_issue', new_google_code_issue_path %>
