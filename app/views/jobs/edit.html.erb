@@ -1,0 +1,40 @@
+<h1>Editing job</h1>
+
+<% form_for(@job) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :employer %><br />
+    <%= f.text_field :employer %>
+  </p>
+  <p>
+    <%= f.label :employee %><br />
+    <%= f.text_field :employee %>
+  </p>
+  <p>
+    <%= f.label :price_in_cents %><br />
+    <%= f.text_field :price_in_cents %>
+  </p>
+  <p>
+    <%= f.label :created %><br />
+    <%= f.date_select :created %>
+  </p>
+  <p>
+    <%= f.label :accepted %><br />
+    <%= f.date_select :accepted %>
+  </p>
+  <p>
+    <%= f.label :finished %><br />
+    <%= f.date_select :finished %>
+  </p>
+  <p>
+    <%= f.label :approved %><br />
+    <%= f.date_select :approved %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @job %> |
+<%= link_to 'Back', jobs_path %>
