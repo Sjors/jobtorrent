@@ -28,8 +28,6 @@ Rails::Initializer.run do |config|
   
   config.gem "sqlite3-ruby", :lib => "sqlite3" #, :version => '1.2.1'
 
-  config.gem "paypal", :lib => "paypal"
-
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
