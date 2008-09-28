@@ -1,0 +1,32 @@
+<h1>Listing jobs</h1>
+
+<table>
+  <tr>
+    <th>Employer</th>
+    <th>Employee</th>
+    <th>Price in cents</th>
+    <th>Created</th>
+    <th>Accepted</th>
+    <th>Finished</th>
+    <th>Approved</th>
+  </tr>
+
+<% for job in @jobs %>
+  <tr>
+    <td><%=h job.employer_id %></td>
+    <td><%=h job.employee_id %></td>
+    <td><%=h job.price_in_cents %></td>
+    <td><%=h job.created %></td>
+    <td><%=h job.accepted %></td>
+    <td><%=h job.finished %></td>
+    <td><%=h job.approved %></td>
+    <td><%= link_to 'Show', job %></td>
+    <td><%= link_to 'Edit', edit_job_path(job) %></td>
+    <td><%= link_to 'Destroy', job, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New job', new_job_path %>

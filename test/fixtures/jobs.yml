@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  employer_id: 1
+  employee_id: 1
+  price_in_cents: 1
+  created: 2008-09-28 20:28:49
+  accepted: 2008-09-28 20:28:49
+  finished: 2008-09-28 20:28:49
+  approved: 2008-09-28 20:28:49
+
+two:
+  employer_id: 1
+  employee_id: 1
+  price_in_cents: 1
+  created: 2008-09-28 20:28:49
+  accepted: 2008-09-28 20:28:49
+  finished: 2008-09-28 20:28:49
+  approved: 2008-09-28 20:28:49

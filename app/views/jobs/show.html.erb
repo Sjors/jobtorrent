@@ -1,0 +1,38 @@
+<p>
+  <b>Employer:</b>
+  <%=h @job.employer_id %>
+</p>
+
+<p>
+  <b>Employee:</b>
+  <%=h @job.employee_id %>
+</p>
+
+<p>
+  <b>Price in cents:</b>
+  <%=h @job.price_in_cents %>
+</p>
+
+<p>
+  <b>Created:</b>
+  <%=h @job.created %>
+</p>
+
+<p>
+  <b>Accepted:</b>
+  <%=h @job.accepted %>
+</p>
+
+<p>
+  <b>Finished:</b>
+  <%=h @job.finished %>
+</p>
+
+<p>
+  <b>Approved:</b>
+  <%=h @job.approved %>
+</p>
+
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>
