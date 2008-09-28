@@ -11,3 +11,6 @@ db/*.sqlite3
 */*/*.swp
 
 config/initializers/site_keys.rb
+config/database.yml
+config/config.yml
+config/environment.rb
