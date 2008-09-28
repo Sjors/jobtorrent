@@ -22,8 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   # "root" route needed to run RSpec stories for the the restful_authentication plugin
   map.root :controller => 'welcome',  :action => 'index'
 
-  # Default routes removed for safety
-  # map.connect ':controller/:action/:id'
-  # map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
   
 end
