@@ -15,7 +15,7 @@ class JobsController < ApplicationController
 
   def employer_index
     if current_user.has_role?("employer")
-      @jobs = Job.find(:all)
+      @jobs = Job.find(:all, :conditions => {:employer_id => current_user.id})
 
       respond_to do |format|
         format.html # index.html.erb
@@ -57,6 +57,8 @@ class JobsController < ApplicationController
   # POST /jobs.xml
   def create
     @job = Job.new(params[:job])
+  
+    @job.employer_id = current_user.id
 
     respond_to do |format|
       if @job.save

@@ -29,12 +29,11 @@ ActiveRecord::Schema.define(:version => 20080928102849) do
     t.integer  "employer_id"
     t.integer  "employee_id"
     t.integer  "price_in_cents"
-    t.datetime "created"
+    t.datetime "created_at"
     t.datetime "accepted"
+    t.datetime "null"
     t.datetime "finished"
     t.datetime "approved"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "payments", :force => true do |t|

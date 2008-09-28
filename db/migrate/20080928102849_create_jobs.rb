@@ -4,12 +4,11 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :employer_id
       t.integer :employee_id
       t.integer :price_in_cents
-      t.datetime :created
-      t.datetime :accepted
-      t.datetime :finished
-      t.datetime :approved
+      t.datetime :created_at
+      t.datetime :accepted, :null
+      t.datetime :finished, :null
+      t.datetime :approved, :null
 
-      t.timestamps
     end
   end
 
