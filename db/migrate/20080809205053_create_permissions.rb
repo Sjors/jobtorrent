@@ -10,6 +10,12 @@ class CreatePermissions < ActiveRecord::Migration
     Role.create({
       :name => 'administrator'
     })
+    Role.create({
+      :name => 'employer'
+    })
+    Role.create({
+      :name => 'employee'
+    })
     # Add the default admin user
     # Be sure to change the password
     user = User.new({
