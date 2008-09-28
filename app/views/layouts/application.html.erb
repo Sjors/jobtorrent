@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+ <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+ <title><%= SITE_NAME -%></title>
+ <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen, projection' %>
+ <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+ <%= stylesheet_link_tag 'application' %>
+ <!--[if IE]><%= stylesheet_link_tag 'blueprint/ie', :media => 'screen, projection' %><![endif]-->
+<%= yield :head %>
+</head>
+<body>
+	<div class="container">
+		<div id='container_hd'>
+		  <div id='hd'>
+		    <h1>
+				<a href="/"><%= SITE_NAME -%></a>
+			</h1>
+		    <h2>
+		    	<% if logged_in? %>
+					Logged in as:
+					<%= link_to h(current_user.login.capitalize), user_path(current_user) %>
+					<%= link_to 'Log Out', logout_url %>
+				<% else %>
+					Welcome! 
+					<%= link_to 'Log In', new_session_path %> 
+					or 
+					<%= link_to 'Sign Up', new_user_path %>
+				<% end %>
+		    </h2>
+		  </div>
+		</div>
+		<div id='container_bd'>
+		  <div id='main'>
+			  <div id="flashes">
+				<% names = [:notice, :error, :warning, :message, :success] %>
+				<% for name in names %>
+				  <% if flash[name] %>
+				    <%= "<div id=\"#{name}\" class=\"#{name}\">#{flash[name]}</div>" %>
+				  <% end %>
+				<% end %>
+			  </div>
+		    <%= yield :layout %>
+		  </div>
+		  <div id='sidebar'>
+		      <%= yield :sidebar %>
+		  </div>
+		</div>
+		<div id='container_ft'>
+		  <div id='ft'>
+		    <ul>
+				<li><%= link_to 'Home', root_url %></li>
+			    <% if logged_in? %>
+				    <li><%= link_to 'Profile', user_path(current_user) %></li>
+				    <li><%= link_to 'Edit Profile', edit_user_path(current_user) %></li>
+				    <% if current_user.has_role?('administrator') %>
+				    	<li><%= link_to 'All Users', users_path %></li>
+			    	<% end %>
+					<li><%= link_to 'Log Out', logout_url %></li>
+			    <% else %>
+				    <li><%= link_to 'Log In', new_session_path %></li>
+				    <li><%= link_to 'Sign Up', new_user_path %></li>
+				    <li><%= link_to 'Forgot Password?', forgot_password_path %></li>
+			    <% end %>
+		    </ul>
+		  </div>
+		</div>
+    </div>
+  </body>
+</html>
