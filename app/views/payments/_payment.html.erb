@@ -1,0 +1,29 @@
+<tr>
+  <% if @role == "employer" %> 
+    <td><%=h User.find(payment.employee_id).login %></td>
+  <% else %>
+    <td><%=h User.find(payment.employer_id).login %></td>
+  <% end %>
+  <td><%=h payment.amount_in_cents %></td>
+  <% if @role == "employer" and payment.transferred.nil? %>
+      <td>
+        <form name="_xclick" action="https://www.paypal.com/us/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="<%=User.find(payment.employee_id).email %>">
+          <input type="hidden" name="item_name" value="<%="Joborrent, " + User.find(payment.employer_id).login + ", job id " + payment.job_id.to_s %>">
+          <input type="hidden" name="currency_code" value="AUD">
+          <input type="hidden" name="amount" value="<%=payment.amount_in_cents %>">
+          <input type="hidden" name="return" value="<%=SITE_URL + "payments/payed/" + payment.id.to_s %>"> 
+          <input type="submit" value="Pay">
+        </form>
+</td>
+  <% else %>
+      <td><%=h payment.transferred %></td>
+  <% end %>
+  <% if @role == "employee" and !payment.transferred.nil? and payment.verified.nil? %>
+      <td><%=link_to "Confirm", :action => "confirm", :id => payment.id %></td>
+  <% else %>
+      <td><%=h payment.verified %></td>
+  <% end %>
+  <td><%=link_to Job.find(payment.job_id).google_code_issue.url, :controller => 'jobs', :action=> 'show', :id => payment.job_id %></td>
+</tr>

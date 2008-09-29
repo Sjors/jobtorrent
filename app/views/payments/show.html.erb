@@ -1,33 +1,6 @@
-<p>
-  <b>Employer:</b>
-  <%=h @payment.employer_id %>
-</p>
+<table>
+  <%=render :partial => 'table_header' %>
+  <%= render :partial => 'payment', :locals => {:payment => @payment} %>
+</table>
 
-<p>
-  <b>Employee:</b>
-  <%=h @payment.employee_id %>
-</p>
-
-<p>
-  <b>Job:</b>
-  <%=h @payment.job_id %>
-</p>
-
-<p>
-  <b>Amount in cents:</b>
-  <%=h @payment.amount_in_cents %>
-</p>
-
-<p>
-  <b>Transferred:</b>
-  <%=h @payment.transferred %>
-</p>
-
-<p>
-  <b>Verified:</b>
-  <%=h @payment.verified %>
-</p>
-
-
-<%= link_to 'Edit', edit_payment_path(@payment) %> |
-<%= link_to 'Back', payments_path %>
+<%= link_to 'All payments', :action => 'index' %>

@@ -16,26 +16,40 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def pay
-    #redirect_to "http://www.paypal.com/"
-    if params[:id].nil? 
-      payment = Payment.find(:first, :conditions => {:job_id => params[:job_id]})
+  def show
+    if params[:id] 
+      @payment = Payment.find(params[:id])
     else
-      payment = Payment.find(params[:id])
+      @payment = Payment.find(:first, :conditions => {:job_id => params[:job_id] })
+    end      
+
+    if current_user.has_role?("employer")
+      @role = "employer"
+    else
+      @role = "employee"
     end
 
-    if current_user.has_role?("employer") and current_user.id == payment.employer_id
-      redirect_to :action => 'payed', :id => payment.id 
+    if (@role == "employer" and @payment.employer_id == current_user.id) or
+        (@role == "employee" and @payment.employee_id == current_user.id)
+
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @payment }
+      end  
+    else
+      redirect_to :action => 'index'
     end
   end
-  
+
   def payed
     payment = Payment.find(params[:id])    
-    if current_user.has_role?("employer") and current_user.id == payment.employer_id
+    if current_user.has_role?("employer") and current_user.id == payment.employer_id and payment.transferred.nil?
       payment.transferred = Time.now
       payment.save
 
       flash[:notice] = "Payment complete. " + User.find(payment.employee_id).login + " will check if it worked out."
+      redirect_to :action => 'index'
+    else
       redirect_to :action => 'index'
     end
 
