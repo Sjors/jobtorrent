@@ -46,7 +46,7 @@
         <%=link_to "Pay", :controller => 'payments', :job_id => job.id, :action => "pay" %>
       <% end %>
     </td>
-    <% if @role == "employer" %>
+    <% if @role == "employer" and job.finished.nil? %>
       <td><%= link_to 'Edit', edit_job_path(job) %></td>
     <% end %>
   </tr>

@@ -90,17 +90,22 @@ class JobsController < ApplicationController
   # PUT /jobs/1.xml
   def update
     @job = Job.find(params[:id])
-    update_url(@job, params[:google_code_issue])
+    if current_user.has_role?("employer") and @job.finished.nil?
 
-    respond_to do |format|
-      if @job.update_attributes(params[:job])
-        flash[:notice] = 'Job was successfully updated.'
-        format.html { redirect_to(@job) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+      update_url(@job, params[:google_code_issue])
+
+      respond_to do |format|
+        if @job.update_attributes(params[:job])
+          flash[:notice] = 'Job was successfully updated.'
+          format.html { redirect_to(@job) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      redirect_to :action => 'index'
     end
   end
 
