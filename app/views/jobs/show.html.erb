@@ -3,7 +3,7 @@
   <%= render :partial => "link_to_project", :locals => { :job => @job }  %>
 <p>
   <b>Employee:</b>
-  <%=h @job.employee_id %>
+  <%=h User.find(@job.employee_id).login %>
 </p>
 
 <p>
