@@ -15,6 +15,7 @@ class JobsController < ApplicationController
 
   def employer_index
     if current_user.has_role?("employer")
+      @role = "employer"
       @jobs = Job.find(:all, :conditions => {:employer_id => current_user.id})
 
       respond_to do |format|
@@ -26,16 +27,28 @@ class JobsController < ApplicationController
     end
   end
 
-  # GET /jobs/1
-  # GET /jobs/1.xml
-  def show
-    @job = Job.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @job }
+  def employee_index
+    if current_user.has_role?("employee")
+      @jobs = Job.find(:all)
+      @role = "employee"
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @jobs }
+      end
+    else
+      redirect_to :root
     end
   end
+  # GET /jobs/1
+  # GET /jobs/1.xml
+  #def show
+  #  @job = Job.find(params[:id])
+
+  #  respond_to do |format|
+  #    format.html # show.html.erb
+  #    format.xml  { render :xml => @job }
+  #  end
+  #end
 
   # GET /jobs/new
   # GET /jobs/new.xml
@@ -102,6 +115,40 @@ class JobsController < ApplicationController
   #    format.xml  { head :ok }
   #  end
   #end
+ 
+  def accept
+    if current_user.has_role?("employee") 
+      job = Job.find(params[:id])
+      if job.accepted.nil?
+        job.accepted = Time.now
+        job.employee_id = current_user.id
+        job.save
+      end
+    end
+    redirect_to :action => "index" 
+  end
+
+  def finish
+    if current_user.has_role?("employee")
+      job = Job.find(params[:id])
+      if job.finished.nil? and job.employee_id == current_user.id
+        job.finished = Time.now
+        job.save
+      end
+    end
+    redirect_to :action => "index" 
+  end
+
+  def approve
+    if current_user.has_role?("employer")
+      job = Job.find(params[:id])
+      if job.employer_id == current_user.id and job.approved.nil? and not(job.finished.nil?) 
+        job.approved = Time.now
+        job.save
+      end
+    end
+    redirect_to :action => "index" 
+  end
 
   private
   def store_url(job, google_code_issue_params)

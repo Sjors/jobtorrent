@@ -4,6 +4,9 @@
   <tr>
     <th>URL</th>
     <th>Price</th>
+    <% if @role == "employee" %>
+      <th>Employer</th>
+    <% end %>
     <th>Employee</th>
     <th>Created</th>
     <th>Accepted</th>
@@ -15,17 +18,39 @@
   <tr>
     <td><%= render :partial => "link_to_project", :locals => { :job => job }  %></td>
     <td><%=h Money.new(job.price_in_cents) %></td>
-    <td><%=h job.employee_id %></td>
+    <% if @role == "employee" %>
+      <td><%=h User.find(job.employer_id).login %></td>
+    <% end %>
+    <td>
+      <% if job.accepted %>
+        <%=h User.find(job.employee_id).login %>
+      <% end %>
+    </td>
     <td><%=h job.created_at %></td>
-    <td><%=h job.accepted %></td>
-    <td><%=h job.finished %></td>
-    <td><%=h job.approved %></td>
-    <td><%= link_to 'Show', job %></td>
-    <td><%= link_to 'Edit', edit_job_path(job) %></td>
+    <td><%=h job.accepted %>
+      <% if @role == "employee" and job.accepted.nil? %>
+        <%=link_to "Accept", :id => job.id, :action => "accept" %>
+      <% end %>
+    </td>
+    <td><%=h job.finished %>
+      <% if @role == "employee" and job.employee_id == current_user.id  and job.finished.nil? %>
+        <%=link_to "Finish", :id => job.id, :action => "finish" %>
+      <% end %>
+    </td> 
+    <td><%=h job.approved %>
+      <% if @role == "employer" and not(job.finished.nil?) and job.employer_id == current_user.id and job.approved.nil? %>
+        <%=link_to "Approve", :id => job.id, :action => "approve" %>
+      <% end %>
+    </td>
+    <% if @role == "employer" %>
+      <td><%= link_to 'Edit', edit_job_path(job) %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New job', new_job_path %>
+<% if @role == "employer" %>
+  <%= link_to 'New job', new_job_path %>
+<% end %>
