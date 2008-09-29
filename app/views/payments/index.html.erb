@@ -1,0 +1,40 @@
+<h1>Listing payments</h1>
+
+<table>
+  <tr>
+    <% if @role == "employer" %> 
+      <th>Employee</th>
+    <% else %>
+      <th>Employer</th>
+    <% end %>
+    <th>Amount (AU$)</th>
+    <th>Transferred</th>
+    <th>Verified</th>
+    <th>Job</th>
+  </tr>
+
+<% for payment in @payments %>
+  <tr>
+    <% if @role == "employer" %> 
+      <td><%=h User.find(payment.employee_id).login %></td>
+    <% else %>
+      <td><%=h User.find(payment.employer_id).login %></td>
+    <% end %>
+    <td><%=h payment.amount_in_cents %></td>
+    <% if @role == "employer" and payment.transferred.nil? %>
+        <td><%=link_to "Pay", :action => "pay", :id => payment.id %></td>
+    <% else %>
+        <td><%=h payment.transferred %></td>
+    <% end %>
+    <% if @role == "employee" and !payment.transferred.nil? and payment.verified.nil? %>
+        <td><%=link_to "Confirm", :action => "confirm", :id => payment.id %></td>
+    <% else %>
+        <td><%=h payment.verified %></td>
+    <% end %>
+    <td><%=link_to Job.find(payment.job_id).google_code_issue.url, :controller => 'jobs', :action=> 'show', :id => payment.job_id %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

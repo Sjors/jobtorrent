@@ -51,13 +51,13 @@
 		<div id='container_ft'>
 		  <div id='ft'>
 		    <ul>
-				<li><%= link_to 'Home', root_url %></li>
 			    <% if logged_in? %>
 				    <li><%= link_to 'Profile', user_path(current_user) %></li>
 				    <% if current_user.has_role?('administrator') %>
 				    	<li><%= link_to 'All Users', users_path %></li>
 			    	<% end %>
 				    <li><%= link_to 'Jobs', :controller => 'jobs' %></li>
+				    <li><%= link_to 'Payments', :controller => 'payments' %></li>
             <li><%= link_to 'Help', 'http://wiki.jobtorrent.org/'%></li>
             <li><%= link_to 'Blog', 'http://blog.jobtorrent.org/'%></li>
 

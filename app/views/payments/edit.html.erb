@@ -1,0 +1,36 @@
+<h1>Editing payment</h1>
+
+<% form_for(@payment) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :employer_id %><br />
+    <%= f.text_field :employer_id %>
+  </p>
+  <p>
+    <%= f.label :employee_id %><br />
+    <%= f.text_field :employee_id %>
+  </p>
+  <p>
+    <%= f.label :job_id %><br />
+    <%= f.text_field :job_id %>
+  </p>
+  <p>
+    <%= f.label :amount_in_cents %><br />
+    <%= f.text_field :amount_in_cents %>
+  </p>
+  <p>
+    <%= f.label :transferred %><br />
+    <%= f.datetime_select :transferred %>
+  </p>
+  <p>
+    <%= f.label :verified %><br />
+    <%= f.datetime_select :verified %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @payment %> |
+<%= link_to 'Back', payments_path %>

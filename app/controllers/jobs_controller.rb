@@ -41,14 +41,14 @@ class JobsController < ApplicationController
   end
   # GET /jobs/1
   # GET /jobs/1.xml
-  #def show
-  #  @job = Job.find(params[:id])
+  def show
+    @job = Job.find(params[:id])
 
-  #  respond_to do |format|
-  #    format.html # show.html.erb
-  #    format.xml  { render :xml => @job }
-  #  end
-  #end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @job }
+    end
+  end
 
   # GET /jobs/new
   # GET /jobs/new.xml
@@ -145,6 +145,12 @@ class JobsController < ApplicationController
       if job.employer_id == current_user.id and job.approved.nil? and not(job.finished.nil?) 
         job.approved = Time.now
         job.save
+        pay = Payment.new
+        pay.employer_id = job.employer_id
+        pay.employee_id = job.employee_id
+        pay.job_id = job.id
+        pay.amount_in_cents = job.price_in_cents
+        pay.save
       end
     end
     redirect_to :action => "index" 

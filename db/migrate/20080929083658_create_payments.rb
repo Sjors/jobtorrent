@@ -3,11 +3,10 @@ class CreatePayments < ActiveRecord::Migration
     create_table :payments do |t|
       t.integer :employer_id
       t.integer :employee_id
-      t.integer :amount
-      t.datetime :datetime
-      t.boolean :verified
-
-      t.timestamps
+      t.integer :job_id
+      t.integer :amount_in_cents
+      t.datetime :transferred
+      t.datetime :verified
     end
   end
 

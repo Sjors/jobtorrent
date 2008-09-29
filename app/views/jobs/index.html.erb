@@ -41,6 +41,10 @@
       <% if @role == "employer" and not(job.finished.nil?) and job.employer_id == current_user.id and job.approved.nil? %>
         <%=link_to "Approve", :id => job.id, :action => "approve" %>
       <% end %>
+      <% if @role == "employer" and not(job.approved.nil?) and job.employer_id == current_user.id and Payment.find(:first, :conditions => {:job_id => job.id}).transferred.nil? %>
+      <br />
+        <%=link_to "Pay", :controller => 'payments', :job_id => job.id, :action => "pay" %>
+      <% end %>
     </td>
     <% if @role == "employer" %>
       <td><%= link_to 'Edit', edit_job_path(job) %></td>

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  #map.resources :payments
+
   map.resources :jobs do |job| 
     job.resources :google_code_issues
   end

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  employer_id: 1
+  employee_id: 1
+  job_id: 1
+  amount_in_cents: 1
+  transferred: 2008-09-29 18:36:58
+  verified: 2008-09-29 18:36:58
+
+two:
+  employer_id: 1
+  employee_id: 1
+  job_id: 1
+  amount_in_cents: 1
+  transferred: 2008-09-29 18:36:58
+  verified: 2008-09-29 18:36:58
