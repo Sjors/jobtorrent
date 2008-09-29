@@ -13,7 +13,7 @@
 
 <% for job in @jobs %>
   <tr>
-    <td></td>
+    <td><%= render :partial => "link_to_project", :locals => { :job => job }  %></td>
     <td><%=h Money.new(job.price_in_cents) %></td>
     <td><%=h job.employee_id %></td>
     <td><%=h job.created_at %></td>
@@ -22,7 +22,6 @@
     <td><%=h job.approved %></td>
     <td><%= link_to 'Show', job %></td>
     <td><%= link_to 'Edit', edit_job_path(job) %></td>
-    <td><%= link_to 'Destroy', job, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

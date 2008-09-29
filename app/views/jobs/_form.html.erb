@@ -1,0 +1,26 @@
+<% 
+  if update == false 
+    url_default = ""
+    submit_text = "Create"
+  else
+    url_default = job.google_code_issue.url
+    submit_text = "Update"
+  end
+%>
+
+
+<% form_for(job) do |f| %>
+  <%= f.error_messages %>
+  
+  <p>
+    <%= f.label "URL" %><br />
+    <%= text_field :google_code_issue, "url", :value => url_default %>
+  </p>
+
+  <p>
+    <%= f.label "Price in dollars" %><br />
+    <%= f.text_field :price_in_cents %>
+  </p>
+    <%= f.submit submit_text %>
+<% end %>
+

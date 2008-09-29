@@ -59,9 +59,10 @@ class JobsController < ApplicationController
     @job = Job.new(params[:job])
   
     @job.employer_id = current_user.id
-
+    
     respond_to do |format|
       if @job.save
+        store_url(@job, params[:google_code_issue])
         flash[:notice] = 'Job was successfully created.'
         format.html { redirect_to(@job) }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
@@ -76,6 +77,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1.xml
   def update
     @job = Job.find(params[:id])
+    update_url(@job, params[:google_code_issue])
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
@@ -89,15 +91,30 @@ class JobsController < ApplicationController
     end
   end
 
-  # DELETE /jobs/1
-  # DELETE /jobs/1.xml
-  def destroy
-    @job = Job.find(params[:id])
-    @job.destroy
+  ## DELETE /jobs/1
+  ## DELETE /jobs/1.xml
+  #def destroy
+  #  @job = Job.find(params[:id])
+  #  @job.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(jobs_url) }
-      format.xml  { head :ok }
-    end
+  #  respond_to do |format|
+  #    format.html { redirect_to(jobs_url) }
+  #    format.xml  { head :ok }
+  #  end
+  #end
+
+  private
+  def store_url(job, google_code_issue_params)
+    gc_issue = GoogleCodeIssue.new(google_code_issue_params)
+    gc_issue.save
+    job_gc = JobGoogleCodeIssue.new
+    job_gc.job_id = job.id
+    job_gc.google_code_issue_id = gc_issue.id
+    job_gc.save 
+  end
+
+  def update_url(job, google_code_issue_params)
+    job.google_code_issue.url = google_code_issue_params[:url]
+    job.google_code_issue.update
   end
 end
