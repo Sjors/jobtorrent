@@ -1,3 +1,22 @@
+<% if @role == "employer" %>
+<p>Here you can set a reward for anyone who fixes a Google Code issue. To add an issue, click on <%= link_to 'New job', new_job_path %> and copy paste the URL. Then set a price and submit.</p>
+
+<%=link_to "What happens next...", 'http://github.com/Sjors/jobtorrent/wikis/employers' %>
+
+<p>Remember, you can add <i>any</i> issue: you do not have to own the project in order to set a reward!</p>
+
+<% end %> 
+ 
+
+<% if @role == "employee" %>
+<p>Here is a list of rewards for fixing Google Code issues. Click on the URL to learn more about the particular issue. If you think you can fix it, right now, click on <i>Accept</i> and get to work. 
+
+<%=link_to "What happens next...", 'http://github.com/Sjors/jobtorrent/wikis/employees' %>
+
+<% end %> 
+
+<p><i>Please note that Jobtorrent is about as beta as it gets and that I do not consider myself liable for any damage caused by anyone's stupidity, including mine. Rest assured though that all transactions are handled by Paypal and can only be made by the employers 'on the spot'.</i></p>
+
 <h1>Listing jobs. Prices in Australian Dollars.</h1>
 
 <table>
