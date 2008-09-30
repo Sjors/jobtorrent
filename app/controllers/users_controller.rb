@@ -43,11 +43,19 @@ class UsersController < ApplicationController
 
   # users can update their own profile, administrators can update any
   def update
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "User updated"
-      redirect_to user_path(@user)
-    else
+    # Special care must be taken when the user changes his email address.
+    # For now, we'll just not allow that
+     
+    if params[:user][:email] != @user.email 
+      flash[:error] = "Sorry, for the time being it is not possible to change your email address."
       render :action => 'edit'
+    else
+      if @user.update_attributes(params[:user])
+        flash[:notice] = "User updated"
+        redirect_to user_path(@user)
+      else
+        render :action => 'edit'
+      end
     end
   end
   
