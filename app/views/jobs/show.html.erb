@@ -3,7 +3,11 @@
   <%= render :partial => "link_to_project", :locals => { :job => @job }  %>
 <p>
   <b>Employee:</b>
-  <%=h User.find(@job.employee_id).login %>
+  <% if @job.employee_id.nil? %>
+    None yet
+  <% else %>
+    <%=h User.find(@job.employee_id).login %>
+  <% end %>
 </p>
 
 <p>
