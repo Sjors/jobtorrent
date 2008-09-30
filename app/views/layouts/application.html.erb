@@ -63,16 +63,16 @@
             <% else %>
 				    	<li><%= link_to 'Employer mode', :controller => 'users', :action =>'employer_mode', :id => current_user.id %></li>
 			    	<% end %>
-            <li><%= link_to 'Help', 'http://wiki.jobtorrent.org/'%></li>
-            <li><%= link_to 'Blog', 'http://blog.jobtorrent.org/'%></li>
-
-            <li><%= link_to 'Contact', 'mailto:sjors@jobtorrent.org'%></li>
 
 			    <% else %>
 				    <li><%= link_to 'Log In', new_session_path %></li>
 				    <li><%= link_to 'Sign Up', new_user_path %></li>
 				    <li><%= link_to 'Forgot Password?', forgot_password_path %></li>
 			    <% end %>
+          <li><%= link_to 'Help', 'http://wiki.jobtorrent.org/'%></li>
+          <li><%= link_to 'Blog', 'http://blog.jobtorrent.org/'%></li>
+
+          <li><%= link_to 'Contact', 'mailto:sjors@jobtorrent.org'%></li>
 		    </ul>
 		  </div>
 		</div>

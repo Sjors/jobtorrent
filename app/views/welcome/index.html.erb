@@ -1,6 +1,6 @@
 <h3>What is Jobtorrent?</h3>
 <p>
-Jobtorrent is a place where you can <b>pay people to fix bugs</b> or <b>get paid for fixing bugs.</b>
+Jobtorrent is a place where you can <b>pay people to fix bugs</b> or <b>get paid for fixing bugs.</b> <%=link_to "Read more...", 'http://github.com/Sjors/jobtorrent/wikis/' %>
 </p>
 
 <h3>Example jobs</h3>
@@ -15,13 +15,14 @@ Jobtorrent is a place where you can <b>pay people to fix bugs</b> or <b>get paid
   <tr>
     <td><%=render :partial => "jobs/link_to_project", :locals => { :job => job }  %></td>
     <td><%=h Money.new(job.price_in_cents) %></td>
-    <td><%=link_to '» Sign up to accept', :controller => 'users', :action => 'new', :initial_role => 'employee'  %></td>
+    <td><%=link_to '» Sign up to accept', :controller => 'users', :action => 'new', :initial_role => 'employee'  %> or <%=link_to "read more...", 'http://github.com/Sjors/jobtorrent/wikis/employees' %></td>
   </tr>
 <% end %>
 </table>
 
 <h3>... or set your own reward!</h3>
-<%= link_to '» Sign up to add your own jobs...', :controller => 'users', :action => 'new', :initial_role => 'employer' %>
+<%= link_to '» Sign up to add your own jobs...', :controller => 'users', :action => 'new', :initial_role => 'employer' %> or 
+<%=link_to "read more...", 'http://github.com/Sjors/jobtorrent/wikis/employers' %>
 
 <% content_for(:sidebar) do %>
 	<div class="box">
