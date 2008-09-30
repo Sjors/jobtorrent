@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   layout 'application'
   
   before_filter :not_logged_in_required, :only => [:new, :create] 
-  before_filter :find_user_or_current_user, :only => [:show, :edit, :update]
+  before_filter :find_user_or_current_user, :only => [:show, :edit, :update, :employee_mode, :employer_mode]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
@@ -25,10 +25,18 @@ class UsersController < ApplicationController
  
   def create
     logout_keeping_session!
+    # First let's make sure a new user doesn't try to make himself admin
+    role_name = params[:initial_role][:role]
+    if role_name == "employee" then @role = "employee" else @role = "employer" end
+
     @user = User.new(params[:user])
     @user.register! if @user && @user.valid?
     success = @user && @user.valid?
     if success && @user.errors.empty?
+      permission = Permission.new
+      permission.user_id = @user.id
+      permission.role_id = Role.find(:first, :conditions => {:name => @role}).id
+      permission.save
             redirect_back_or_default('/')
       flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
     else
@@ -98,6 +106,29 @@ class UsersController < ApplicationController
   def purge
     @user.destroy
     redirect_to users_path
+  end
+
+  # only for user
+  def employee_mode
+    if @user.id == current_user.id
+      Permission.find(:first, :conditions => {:user_id => @user.id, :role_id => 2}).destroy
+      p = Permission.new
+      p.user_id = @user.id
+      p.role_id = 3
+      p.save
+    else 
+      flash[:error] = "I'm sorry Dave, I'm afraid I can't let you do that."
+    end
+    redirect_to :controller => 'jobs'
+  end
+
+  def employer_mode
+    Permission.find(:first, :conditions => {:user_id => @user.id, :role_id => 3}).destroy
+    p = Permission.new
+    p.user_id = @user.id
+    p.role_id = 2
+    p.save
+    redirect_to :controller => 'jobs'
   end
   
 protected

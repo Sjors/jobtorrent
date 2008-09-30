@@ -58,6 +58,11 @@
 			    	<% end %>
 				    <li><%= link_to 'Jobs', :controller => 'jobs' %></li>
 				    <li><%= link_to 'Payments', :controller => 'payments' %></li>
+				    <% if current_user.has_role?('employer') %>
+				    	<li><%= link_to 'Employee mode', :controller => 'users', :action =>'employee_mode', :id => current_user.id %></li>
+            <% else %>
+				    	<li><%= link_to 'Employer mode', :controller => 'users', :action =>'employer_mode', :id => current_user.id %></li>
+			    	<% end %>
             <li><%= link_to 'Help', 'http://wiki.jobtorrent.org/'%></li>
             <li><%= link_to 'Blog', 'http://blog.jobtorrent.org/'%></li>
 

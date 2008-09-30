@@ -17,6 +17,15 @@
 	<%= label_tag 'password_confirmation', 'Re-type your password to confirm:' %>
 	<%= f.password_field :password_confirmation %>
 
+	<%= label_tag 'initial_role', 'Start as employer or employee: (don\'t worry, you can switch anytime)'  %> 
+  <% if params[:initial_role] == "employee" or @role == "employee" then employee = true else employer = true end %>
+
+  <p>Employer:
+  <%= radio_button("initial_role", "role", "employer", :checked => employer) -%>
+  Employee:
+  <%= radio_button("initial_role", "role", "employee", :checked => employee) -%>
+  </p>
+
 	<p><%= submit_tag 'Sign up' %></p>
 <% end -%>
 
