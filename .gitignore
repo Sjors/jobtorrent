@@ -13,4 +13,5 @@ db/*.sqlite3
 config/initializers/site_keys.rb
 config/database.yml
 config/config.yml
-config/environment.rb
+
+secret

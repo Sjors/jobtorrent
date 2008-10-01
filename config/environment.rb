@@ -9,6 +9,7 @@ RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require 'rails_generator/secret_key_generator'  
 
 Rails::Initializer.run do |config|
   config.active_record.observers = :user_observer
@@ -21,19 +22,11 @@ Rails::Initializer.run do |config|
   # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
-  # Specify gems that this application depends on. 
-  # They can then be installed with "rake gems:install" on new installations.
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "aws-s3", :lib => "aws/s3"
-  
   config.gem "sqlite3-ruby", :lib => "sqlite3" #, :version => '1.2.1'
-  config.gem "mechanize", :lib => "mechanize" #, :version => '1.2.1'
+  config.gem "money", :lib => "money" #, :version => '1.2.1'
 
-  # Mechanize depends on these gems and because "rake gem:unpack:dependancies" doesn't 
-  # work I'll just list them here.
-  #
-  config.gem "hpricot", :lib => "hpricot" #, :version => '1.2.1'
+  #config.gem "hpricot", :lib => "hpricot" 
+  #config.gem "mechanize", :lib => "mechanize"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -51,15 +44,22 @@ Rails::Initializer.run do |config|
   # in the database in UTC, and return them converted to the specified local zone.
   # Run "rake -D time" for a list of tasks for finding time zone names. Uncomment to use default local time.
   config.time_zone = 'UTC'
+  # Your secret key for verifying cookie session data integrity.  
+  # If you change this key, all old sessions will become invalid!  
+  # Make sure the secret is at least 30 characters and all random,  
+  # no regular words or you'll be exposed to dictionary attacks.  
+  secret_file = File.join(RAILS_ROOT, "secret")  
+  if File.exist?(secret_file)  
+    secret = File.read(secret_file)  
+  else  
+    secret = Rails::SecretKeyGenerator.new("jobtorrent").generate_secret  
+    File.open(secret_file, 'w') { |f| f.write(secret) }  
+  end  
 
-  # Your secret key for verifying cookie session data integrity.
-  # If you change this key, all old sessions will become invalid!
-  # Make sure the secret is at least 30 characters and all random, 
-  # no regular words or you'll be exposed to dictionary attacks.
-  config.action_controller.session = {
-    :session_key => '_jobtorrent_session',
-    :secret      => '2c3b17dfbfee0e992e2140e5b2fbd6d2d09567966606c27bff3969e986cd017701886b04859a69e0daae1bae5ce38b1303ab750ef6a4ea8a0b91204d8927df50'
-  }
+  config.action_controller.session = {  
+    :session_key => '_instant_social_session',  
+    :secret      => secret  
+  }  
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
