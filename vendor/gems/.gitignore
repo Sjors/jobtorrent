@@ -1,0 +1,14 @@
+sqlite3-ruby-1.2.4/bin
+sqlite3-ruby-1.2.4/ext/sqlite3_api/sqlite3_api.so
+sqlite3-ruby-1.2.4/ext/sqlite3_api/sqlite3_api_wrap.o
+sqlite3-ruby-1.2.4/ext/sqlite3_api/Makefile
+sqlite3-ruby-1.2.4/ext/sqlite3_api/mkmf.log
+hpricot-0.6.161/bin
+hpricot-0.6.161/ext/fast_xs/Makefile
+hpricot-0.6.161/ext/fast_xs/fast_xs.o
+hpricot-0.6.161/ext/fast_xs/fast_xs.so
+hpricot-0.6.161/ext/fast_xs/mkmf.log
+hpricot-0.6.161/ext/hpricot_scan/Makefile
+hpricot-0.6.161/ext/hpricot_scan/hpricot_scan.o
+hpricot-0.6.161/ext/hpricot_scan/hpricot_scan.so
+hpricot-0.6.161/ext/hpricot_scan/mkmf.log
