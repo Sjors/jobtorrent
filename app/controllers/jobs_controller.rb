@@ -90,7 +90,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1.xml
   def update
     @job = Job.find(params[:id])
-    if current_user.has_role?("employer") and @job.finished.nil?
+    if current_user.has_role?("employer") and @job.finished.nil? and current_user.id == @job.employer_id
 
       update_url(@job, params[:google_code_issue])
 
