@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20080929083658) do
   create_table "jobs", :force => true do |t|
     t.integer  "employer_id"
     t.integer  "employee_id"
-    t.integer  "price_in_cents"
+    t.decimal  "price"
     t.datetime "created_at"
     t.datetime "accepted"
     t.datetime "null"

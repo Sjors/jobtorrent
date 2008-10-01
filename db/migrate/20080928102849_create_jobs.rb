@@ -3,7 +3,7 @@ class CreateJobs < ActiveRecord::Migration
     create_table :jobs do |t|
       t.integer :employer_id
       t.integer :employee_id
-      t.integer :price_in_cents
+      t.decimal :price
       t.datetime :created_at
       t.datetime :accepted, :null
       t.datetime :finished, :null

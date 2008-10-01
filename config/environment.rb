@@ -22,8 +22,7 @@ Rails::Initializer.run do |config|
   # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
-  config.gem "sqlite3-ruby", :lib => "sqlite3" #, :version => '1.2.1'
-  config.gem "money", :lib => "money" #, :version => '1.2.1'
+  config.gem "sqlite3-ruby", :lib => "sqlite3" 
 
   #config.gem "hpricot", :lib => "hpricot" 
   #config.gem "mechanize", :lib => "mechanize"
@@ -73,4 +72,5 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+  
 end

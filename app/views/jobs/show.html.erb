@@ -12,7 +12,7 @@
 
 <p>
   <b>Price in AUD:</b>
-    <%= Money.new(@job.price_in_cents) %>
+    <%= @job.price.to_f.to_money %>
 </p>
 
 <p>

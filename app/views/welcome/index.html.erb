@@ -14,7 +14,7 @@ Jobtorrent is a place where you can <b>pay people to fix bugs</b> or <b>get paid
 <% for job in @jobs %>
   <tr>
     <td><%=render :partial => "jobs/link_to_project", :locals => { :job => job }  %></td>
-    <td><%=h Money.new(job.price_in_cents) %></td>
+    <td><%=h job.price.to_f.to_money %></td>
     <td><%=link_to '» Sign up to accept', :controller => 'users', :action => 'new', :initial_role => 'employee'  %> or <%=link_to "read more...", 'http://github.com/Sjors/jobtorrent/wikis/employees' %></td>
   </tr>
 <% end %>

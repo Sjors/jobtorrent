@@ -36,7 +36,7 @@
 <% for job in @jobs %>
   <tr>
     <td><%= render :partial => "link_to_project", :locals => { :job => job }  %></td>
-    <td>$<%=h Money.new(job.price_in_cents) %></td>
+    <td><%=h job.price.to_f.to_money %></td>
     <% if @role == "employee" %>
       <td><%=h User.find(job.employer_id).login %></td>
     <% end %>

@@ -72,6 +72,7 @@ class JobsController < ApplicationController
     @job = Job.new(params[:job])
   
     @job.employer_id = current_user.id
+    @job.price = @job.price
     
     respond_to do |format|
       if @job.save
@@ -154,7 +155,7 @@ class JobsController < ApplicationController
         pay.employer_id = job.employer_id
         pay.employee_id = job.employee_id
         pay.job_id = job.id
-        pay.amount_in_cents = job.price_in_cents
+        pay.amount = job.price
         pay.save
       end
     end
