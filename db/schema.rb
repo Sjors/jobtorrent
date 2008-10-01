@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20080929083658) do
     t.integer  "employer_id"
     t.integer  "employee_id"
     t.integer  "job_id"
-    t.integer  "amount_in_cents"
+    t.integer  "amount"
     t.datetime "transferred"
     t.datetime "verified"
   end
