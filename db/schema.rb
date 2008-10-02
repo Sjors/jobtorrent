@@ -9,13 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080929083658) do
+ActiveRecord::Schema.define(:version => 20081001113520) do
 
   create_table "google_code_issues", :force => true do |t|
-    t.string   "url"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "url"
+    t.string "status"
+    t.date   "created_at"
+    t.date   "updated_at"
+    t.string "project"
+    t.string "project_url"
+    t.string "title"
   end
 
   create_table "job_google_code_issues", :force => true do |t|
