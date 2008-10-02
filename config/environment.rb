@@ -1,4 +1,8 @@
 # Be sure to restart your server when you modify this file
+# Because I'm on a shared host and I can't get rake gems:unpack to work properly,
+# I installed the gems in my home folder and pointed a symlink "gempath" to it.
+# This symlink is ignored by git.
+ENV['GEM_PATH'] ||= "gempath"
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
@@ -22,13 +26,9 @@ Rails::Initializer.run do |config|
   # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
-  # Because I'm on a shared host and I can't get rake gems:unpack to work properly,
-  # I installed the gems in my home folder and pointed a symlink "gempath" to it.
-  # This symlink is ignored by git.
-  Gem.path << "gempath"
 
   config.gem "sqlite3-ruby", :lib => "sqlite3" 
-  # config.gem "mechanize", :lib => "mechanize"
+  config.gem "mechanize", :lib => "mechanize"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
