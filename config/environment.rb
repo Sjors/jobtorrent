@@ -22,10 +22,13 @@ Rails::Initializer.run do |config|
   # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
-  config.gem "sqlite3-ruby", :lib => "sqlite3" 
+  # Because I'm on a shared host and I can't get rake gems:unpack to work properly,
+  # I installed the gems in my home folder and pointed a symlink "gempath" to it.
+  # This symlink is ignored by git.
+  Gem.path << "gempath"
 
-  #config.gem "hpricot", :lib => "hpricot" 
-  #config.gem "mechanize", :lib => "mechanize"
+  config.gem "sqlite3-ruby", :lib => "sqlite3" 
+  # config.gem "mechanize", :lib => "mechanize"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

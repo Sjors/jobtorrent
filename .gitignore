@@ -16,3 +16,5 @@ config/config.yml
 
 secret
 db/schema.rb
+
+gempath
