@@ -1,6 +1,6 @@
 <p> 
-  <b>URL:</b> 
-  <%= render :partial => "link_to_project", :locals => { :job => @job }  %>
+  <b>Project and issue:</b> 
+  <%= render :partial => "link_to_project", :locals => { :job => @job, :html_tag => 'p' }  %>
 <p>
   <b>Employee:</b>
   <% if @job.employee_id.nil? %>

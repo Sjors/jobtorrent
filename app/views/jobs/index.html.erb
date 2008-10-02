@@ -21,7 +21,8 @@
 
 <table>
   <tr>
-    <th>URL</th>
+    <th>Project</th>
+    <th>Issue</th>
     <th>Price</th>
     <% if @role == "employee" %>
       <th>Employer</th>
@@ -35,7 +36,7 @@
 
 <% for job in @jobs %>
   <tr>
-    <td><%= render :partial => "link_to_project", :locals => { :job => job }  %></td>
+    <%= render :partial => "link_to_project", :locals => { :job => job, :html_tag => 'td' }  %>
     <td><%=h job.price.to_f.to_money %></td>
     <% if @role == "employee" %>
       <td><%=h User.find(job.employer_id).login %></td>

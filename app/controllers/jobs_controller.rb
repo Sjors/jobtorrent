@@ -164,8 +164,9 @@ class JobsController < ApplicationController
 
   private
   def store_url(job, google_code_issue_params)
-    gc_issue = GoogleCodeIssue.new(google_code_issue_params)
-    gc_issue.save
+    url = google_code_issue_params[:url]
+    GoogleCodeIssue.create(google_code_issue_params)
+    gc_issue = GoogleCodeIssue.find_by_url(url)
     job_gc = JobGoogleCodeIssue.new
     job_gc.job_id = job.id
     job_gc.google_code_issue_id = gc_issue.id
