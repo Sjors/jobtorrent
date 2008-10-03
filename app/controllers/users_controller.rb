@@ -111,7 +111,9 @@ class UsersController < ApplicationController
   # only for user
   def employee_mode
     if @user.id == current_user.id
-      Permission.find(:first, :conditions => {:user_id => @user.id, :role_id => 2}).destroy
+      employer_perm = Permission.find(:first, :conditions => {:user_id => @user.id, :role_id => 2})
+      employer_perm.destroy if employer_perm
+
       p = Permission.new
       p.user_id = @user.id
       p.role_id = 3
@@ -123,7 +125,9 @@ class UsersController < ApplicationController
   end
 
   def employer_mode
-    Permission.find(:first, :conditions => {:user_id => @user.id, :role_id => 3}).destroy
+    employee_perm = Permission.find(:first, :conditions => {:user_id => @user.id, :role_id => 3})
+    employee_perm.destroy if employee_perm
+
     p = Permission.new
     p.user_id = @user.id
     p.role_id = 2

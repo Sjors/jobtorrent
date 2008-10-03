@@ -75,12 +75,13 @@ class JobsController < ApplicationController
     @job.price = @job.price
     
     respond_to do |format|
-      if @job.save
-        store_url(@job, params[:google_code_issue])
+      if @job.save and store_url(@job, params[:google_code_issue])
         flash[:notice] = 'Job was successfully created.'
         format.html { redirect_to(@job) }
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
+	@job.destroy
+	@job = Job.new(params[:job])
         format.html { render :action => "new" }
         format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
@@ -92,11 +93,8 @@ class JobsController < ApplicationController
   def update
     @job = Job.find(params[:id])
     if current_user.has_role?("employer") and @job.finished.nil? and current_user.id == @job.employer_id
-
-      update_url(@job, params[:google_code_issue])
-
       respond_to do |format|
-        if @job.update_attributes(params[:job])
+      if @job.update_attributes(params[:job]) and update_url(@job, params[:google_code_issue])
           flash[:notice] = 'Job was successfully updated.'
           format.html { redirect_to(@job) }
           format.xml  { head :ok }
@@ -165,12 +163,14 @@ class JobsController < ApplicationController
   private
   def store_url(job, google_code_issue_params)
     url = google_code_issue_params[:url]
-    GoogleCodeIssue.create(google_code_issue_params)
-    gc_issue = GoogleCodeIssue.find_by_url(url)
+    gc_issue = GoogleCodeIssue.create(google_code_issue_params)
+    return false unless gc_issue.save
+
     job_gc = JobGoogleCodeIssue.new
     job_gc.job_id = job.id
     job_gc.google_code_issue_id = gc_issue.id
     job_gc.save 
+    true
   end
 
   def update_url(job, google_code_issue_params)
