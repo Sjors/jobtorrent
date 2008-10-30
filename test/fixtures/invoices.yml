@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  amount: 9.99
+  user: 
+  year: 1
+  month: 1
+  billed_at: 2008-10-31 10:55:25
+  due_at: 2008-10-31 10:55:25
+  paid_at: 2008-10-31 10:55:25
+  payment_confirmed_at: 2008-10-31 10:55:25
+
+two:
+  amount: 9.99
+  user: 
+  year: 1
+  month: 1
+  billed_at: 2008-10-31 10:55:25
+  due_at: 2008-10-31 10:55:25
+  paid_at: 2008-10-31 10:55:25
+  payment_confirmed_at: 2008-10-31 10:55:25

@@ -1,0 +1,34 @@
+<h1>Listing invoices</h1>
+
+<table>
+  <tr>
+    <th>Amount</th>
+    <th>User</th>
+    <th>Year</th>
+    <th>Month</th>
+    <th>Billed at</th>
+    <th>Due at</th>
+    <th>Paid at</th>
+    <th>Payment confirmed at</th>
+  </tr>
+
+<% for invoice in @invoices %>
+  <tr>
+    <td><%=h invoice.amount %></td>
+    <td><%=h invoice.user %></td>
+    <td><%=h invoice.year %></td>
+    <td><%=h invoice.month %></td>
+    <td><%=h invoice.billed_at %></td>
+    <td><%=h invoice.due_at %></td>
+    <td><%=h invoice.paid_at %></td>
+    <td><%=h invoice.payment_confirmed_at %></td>
+    <td><%= link_to 'Show', invoice %></td>
+    <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+    <td><%= link_to 'Destroy', invoice, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New invoice', new_invoice_path %>

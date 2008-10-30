@@ -1,0 +1,44 @@
+<h1>Editing invoice</h1>
+
+<% form_for(@invoice) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :year %><br />
+    <%= f.text_field :year %>
+  </p>
+  <p>
+    <%= f.label :month %><br />
+    <%= f.text_field :month %>
+  </p>
+  <p>
+    <%= f.label :billed_at %><br />
+    <%= f.datetime_select :billed_at %>
+  </p>
+  <p>
+    <%= f.label :due_at %><br />
+    <%= f.datetime_select :due_at %>
+  </p>
+  <p>
+    <%= f.label :paid_at %><br />
+    <%= f.datetime_select :paid_at %>
+  </p>
+  <p>
+    <%= f.label :payment_confirmed_at %><br />
+    <%= f.datetime_select :payment_confirmed_at %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @invoice %> |
+<%= link_to 'Back', invoices_path %>

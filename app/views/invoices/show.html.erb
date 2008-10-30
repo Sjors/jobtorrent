@@ -1,0 +1,43 @@
+<p>
+  <b>Amount:</b>
+  <%=h @invoice.amount %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @invoice.user %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%=h @invoice.year %>
+</p>
+
+<p>
+  <b>Month:</b>
+  <%=h @invoice.month %>
+</p>
+
+<p>
+  <b>Billed at:</b>
+  <%=h @invoice.billed_at %>
+</p>
+
+<p>
+  <b>Due at:</b>
+  <%=h @invoice.due_at %>
+</p>
+
+<p>
+  <b>Paid at:</b>
+  <%=h @invoice.paid_at %>
+</p>
+
+<p>
+  <b>Payment confirmed at:</b>
+  <%=h @invoice.payment_confirmed_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
+<%= link_to 'Back', invoices_path %>

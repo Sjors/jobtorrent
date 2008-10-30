@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :invoices
+
   #map.resources :payments
 
   #map.resources :jobs do |job| 
