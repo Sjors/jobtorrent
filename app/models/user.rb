@@ -70,6 +70,15 @@ class User < ActiveRecord::Base
   def has_role?(name)
     self.roles.find_by_name(name) ? true : false
   end
+
+  def accepted_fee_structure?
+    return !(self.accepts_fee_structure.nil?)
+  end
+
+  def accepts_fee_structure!
+    self.accepts_fee_structure = Time.now
+    self.save
+  end
   
   protected
     

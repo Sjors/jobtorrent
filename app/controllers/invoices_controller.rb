@@ -1,4 +1,6 @@
 class InvoicesController < ApplicationController
+  before_filter :check_administrator_role, :only => [:edit, :update, :destroy, :new, :create]
+  
   # GET /invoices
   # GET /invoices.xml
   def index

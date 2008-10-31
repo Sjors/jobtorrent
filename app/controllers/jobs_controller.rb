@@ -124,6 +124,14 @@ class JobsController < ApplicationController
     if current_user.has_role?("employee") 
       job = Job.find(params[:id])
       if job.accepted.nil?
+        # Make sure the user has accepted the fee structure
+        unless current_user.accepted_fee_structure? 
+          flash[:notice] = "Before you can accept this job, you need to agree with the Jobtorrent fee structure."
+          redirect_to :controller => 'users', :action => 'fee_structure_agreement', :job_id => job.id
+          return 
+        end
+        
+        # User accepts job:
         job.accepted = Time.now
         job.employee_id = current_user.id
         job.save

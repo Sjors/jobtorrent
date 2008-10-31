@@ -134,6 +134,15 @@ class UsersController < ApplicationController
     p.save
     redirect_to :controller => 'jobs'
   end
+
+  def fee_structure_agreement
+    @job_id = params[:job_id]
+  end
+
+  def agree_to_fee_structure
+    current_user.accepts_fee_structure!
+    redirect_to :controller => 'jobs', :id => params[:job_id], :action => 'accept'  
+  end
   
 protected
 
