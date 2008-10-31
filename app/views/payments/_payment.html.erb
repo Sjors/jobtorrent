@@ -13,9 +13,10 @@
           <input type="hidden" name="item_name" value="<%="Joborrent, " + User.find(payment.employer_id).login + ", job id " + payment.job_id.to_s %>">
           <input type="hidden" name="currency_code" value="AUD">
           <input type="hidden" name="amount" value="<%=payment.amount %>">
-          <input type="hidden" name="return" value="<%=SITE_URL + "payments/payed/" + payment.id.to_s %>"> 
+          <input type="hidden" name="return" value="<%=SITE_URL + "payments/paid/" + payment.id.to_s %>"> 
           <input type="submit" value="Pay">
         </form>
+        <%= link_to 'Paid by other means', :action => 'paid', :id => payment.id %>
 </td>
   <% else %>
       <td><%=h payment.transferred %></td>

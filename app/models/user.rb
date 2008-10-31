@@ -79,6 +79,16 @@ class User < ActiveRecord::Base
     self.accepts_fee_structure = Time.now
     self.save
   end
+
+  named_scope :paid_in, lambda {|*args| {:include => :payments, :conditions => [ 'month(payments.verified) = ? and year(payments.verified) = ?',  args[0], args[1]  ] } } 
+
+  def total_earned_in(month, year)
+    total =  0
+    for payment in self.payments.verified_in(month, year)
+      total = total + payment.amount
+    end
+    return total
+  end
   
   protected
     

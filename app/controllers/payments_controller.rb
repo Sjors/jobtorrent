@@ -41,7 +41,7 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def payed
+  def paid
     payment = Payment.find(params[:id])    
     if current_user.has_role?("employer") and current_user.id == payment.employer_id and payment.transferred.nil?
       payment.transferred = Time.now
