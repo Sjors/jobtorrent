@@ -22,9 +22,11 @@ common:
 development:
   site_url: http://localhost:3000/
   mail_method: gmail
+  google_analytics: 
 
 test:
   site_url: http://localhost:3000/
 
 production:
   mail_method: sendmail
+  google_analytics: 
