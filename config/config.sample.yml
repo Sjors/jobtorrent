@@ -21,6 +21,10 @@ common:
 
 development:
   site_url: http://localhost:3000/
+  mail_method: gmail
 
 test:
   site_url: http://localhost:3000/
+
+production:
+  mail_method: sendmail

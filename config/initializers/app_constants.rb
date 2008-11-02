@@ -12,5 +12,8 @@ SITE_NAME = "#{Conf.site_name}".freeze
 ADMIN_LOGIN = "#{Conf.admin_login}".freeze
 ADMIN_EMAIL_ADDRESS = "#{Conf.admin_email_address}".freeze
 ADMIN_PASSWORD = "#{Conf.admin_password}".freeze
-GOOGLE_ACCOUNT_LOGIN = "#{Conf.google_account_login}".freeze
-GOOGLE_ACCOUNT_PASSWORD = "#{Conf.google_account_password}".freeze
+MAIL_METHOD = "#{Conf.mail_method}".freeze
+if MAIL_METHOD == "gmail"
+	GOOGLE_ACCOUNT_LOGIN = "#{Conf.google_account_login}".freeze
+	GOOGLE_ACCOUNT_PASSWORD = "#{Conf.google_account_password}".freeze
+end
