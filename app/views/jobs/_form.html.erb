@@ -21,6 +21,12 @@
     <%= f.label "Price in dollars" %><br />
     <%= f.text_field :price %>
   </p>
+
+  <% unless current_user.has_jobs_as_employer? %>
+    <p>You will be notified once someone - the employee - has completed the assignment. At that point you can transfer the price via Paypal or by other means. At the end of the month, Jobtorrent will send an invoice of 5% of the award to the employee. You do not need to worry about that. 
+    </p> 
+  <% end %>
+
     <%= f.submit submit_text %>
 <% end %>
 

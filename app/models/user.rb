@@ -91,6 +91,16 @@ class User < ActiveRecord::Base
     end
     return total
   end
+
+  def has_jobs_as_employer?
+    # Finds out if the user has any jobs as an employer.
+    return !Job.find(:first, :conditions => {:employer_id => self.id}).nil?
+  end
+  
+  def has_jobs_as_employee?
+    # Finds out if the user has any jobs as an employee.
+    return !Job.find(:all, :conditions => {:employee_id => self.id}).nil?
+  end
   
   protected
     
