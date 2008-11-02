@@ -1,12 +1,14 @@
 <p>
   <b>Amount:</b>
-  <%=h @invoice.amount %>
+  <%=h @invoice.amount.to_f.to_money %>
 </p>
 
-<p>
-  <b>User:</b>
-  <%=h @invoice.user %>
-</p>
+<% if current_user.has_role?('administrator') %>
+  <p>
+    <b>User:</b>
+    <%=h @invoice.user.login %>
+  </p>
+<% end %>
 
 <p>
   <b>Year:</b>
@@ -20,24 +22,47 @@
 
 <p>
   <b>Billed at:</b>
-  <%=h @invoice.billed_at %>
+  <%=h @invoice.billed_at.to_date %>
 </p>
 
 <p>
   <b>Due at:</b>
-  <%=h @invoice.due_at %>
+  <% unless @invoice.due_at.nil? %>
+      <%=h @invoice.due_at.to_date %>
+  <% end %>
+
 </p>
 
 <p>
   <b>Paid at:</b>
-  <%=h @invoice.paid_at %>
+  <% unless @invoice.paid_at.nil? %>
+      <%=h @invoice.paid_at.to_date %>
+  <% end %>
 </p>
 
 <p>
   <b>Payment confirmed at:</b>
-  <%=h @invoice.payment_confirmed_at %>
+  <% unless @invoice.payment_confirmed_at.nil? %>
+      <%=h @invoice.payment_confirmed_at.to_date %>
+  <% end %>
 </p>
 
+<% if current_user.has_role?('administrator') %>
+  <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
+<% end %>
 
-<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
+<% if @invoice.paid_at.nil? %>
+  <form name="_xclick" action="https://www.paypal.com/us/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="<%= INVOICE_ADDRESS %>">
+    <input type="hidden" name="item_name" value="<%="Joborrent, " + current_user.login + ", invoice " + @invoice.id.to_s %>">
+    <input type="hidden" name="currency_code" value="AUD">
+    <input type="hidden" name="amount" value="<%=@invoice.amount %>">
+    <input type="hidden" name="return" value="<%=SITE_URL + "invoices/paid/" + @invoice.id.to_s + "?means=paypal" %>"> 
+    <input type="submit" value="Pay with Paypal">
+  </form>
+  <%= link_to 'Paid by other means', :action => 'paid', :id => @invoice.id, :means => 'other' %>
+<% end %>
+<br/>
+
 <%= link_to 'Back', invoices_path %>

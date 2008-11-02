@@ -17,6 +17,7 @@ common:
   admin_email_address: admin@mydomain.com
   google_account_login: unknown
   google_account_password: secret
+  invoice_address: invoices@jobtorrent.org
 
 development:
   site_url: http://localhost:3000/

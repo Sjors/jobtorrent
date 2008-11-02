@@ -4,7 +4,11 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.xml
   def index
-    @invoices = Invoice.find(:all)
+    if current_user.has_role?('administrator')
+      @invoices = Invoice.find(:all)
+    else 
+      @invoices = current_user.invoices
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,10 +20,13 @@ class InvoicesController < ApplicationController
   # GET /invoices/1.xml
   def show
     @invoice = Invoice.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @invoice }
+    if @invoice.user == current_user
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @invoice }
+      end
+    else
+      redirect_back_or_default(root_path)
     end
   end
 
@@ -83,5 +90,28 @@ class InvoicesController < ApplicationController
       format.html { redirect_to(invoices_url) }
       format.xml  { head :ok }
     end
+  end
+
+  def paid
+    invoice = Invoice.find(params[:id])    
+    if current_user == invoice.user and invoice.paid_at.nil?
+      invoice.paid_at = 0.hours.from_now
+      invoice.save
+
+      means = params[:means]
+      
+      if means == "paypal" then
+        # Nothing to do; Paypal sends an email when this happens.
+      else
+        # Send an email to invoices mail address about the invoice        
+        UserMailer.deliver_invoice_paid_by_other_means(invoice, means)  
+      end
+
+      flash[:notice] = "Thanks for paying your invoice! Jobtorrent will confirm it as soon as possible. "
+      redirect_to :action => 'index'
+    else
+      redirect_to :action => 'index'
+    end
+
   end
 end

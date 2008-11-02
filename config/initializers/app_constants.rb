@@ -6,6 +6,7 @@
 # are called in this file like this: "Conf.site_url."
 
 SITE_URL = "#{Conf.site_url}".freeze
+INVOICE_ADDRESS = "#{Conf.invoice_address}".freeze
 SITE_EMAIL_ADDRESS = "#{Conf.site_email_address}".freeze
 SITE_NAME = "#{Conf.site_name}".freeze
 ADMIN_LOGIN = "#{Conf.admin_login}".freeze

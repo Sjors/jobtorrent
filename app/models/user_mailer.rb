@@ -37,6 +37,29 @@ class UserMailer < ActionMailer::Base
     @subject     = subject
     @body[:body]  = body
   end
+
+  def invoice_paid_by_other_means(invoice, means)
+    @recipients  = INVOICE_ADDRESS
+    @from        = SITE_EMAIL_ADDRESS
+    @subject     = SITE_NAME
+    @sent_on     = Time.now
+    @subject     = invoice.user.login + " has paid invoice."
+    @body[:url]  = "#{SITE_URL}invoices/#{invoice.id}"
+    @body[:invoice] = invoice
+    @body[:means] = means
+    @body[:user] = invoice.user
+  end
+
+  def new_invoice(invoice)
+    @recipients  = invoice.user.email
+    @from        = INVOICE_ADDRESS
+    @subject     = "Jobtorrent invoice " + Time.mktime(invoice.year,invoice.month).strftime("%B %Y") + "." 
+    @sent_on     = Time.now
+    @body[:url]  = "#{SITE_URL}invoices/#{invoice.id}"
+    @body[:invoice] = invoice
+    @body[:user] = invoice.user
+    @body[:month] = Time.mktime(invoice.year,invoice.month).strftime("%B")
+  end
   
   protected
     def setup_email(user)

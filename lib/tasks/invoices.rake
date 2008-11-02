@@ -32,5 +32,11 @@ task :invoices => :environment do
   end
 
   puts "Total invoices this month: $" + Invoice.total_for(month, year).to_s
+
+  # All invoices are generated, now let's email them:
+  for i in Invoice.billed_in(month, year)
+    UserMailer.deliver_new_invoice(i)
+  end
   
+  puts "Emails sent."
 end

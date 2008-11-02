@@ -1,0 +1,14 @@
+Dear <%=h @user.login %>,
+
+Congratulations, you have earned <%= @invoice.user.total_earned_in(@invoice.month, @invoice.year).to_f.to_money %> in <%= @month %>. As a result, the amount that you need to pay Jobtorrent for this month is <%= @invoice.amount.to_f.to_money %>.
+
+You can easily pay this bill via Paypal here:
+
+<%= @url %>
+
+If you have any questions, don't hestitate to reply to this email and I will get back to you as soon as possible. 
+
+Kind regards,
+
+Sjors Provoost
+The Jobtorrent

@@ -3,7 +3,9 @@
 <table>
   <tr>
     <th>Amount</th>
-    <th>User</th>
+    <% if current_user.has_role?('administrator') %>
+      <th>User</th>
+    <% end %>
     <th>Year</th>
     <th>Month</th>
     <th>Billed at</th>
@@ -14,17 +16,27 @@
 
 <% for invoice in @invoices %>
   <tr>
-    <td><%=h invoice.amount %></td>
-    <td><%=h invoice.user %></td>
+    <td><%=h invoice.amount.to_f.to_money %></td>
+    <% if current_user.has_role?('administrator') %>
+      <td><%=h invoice.user.login %></td>
+    <% end %>
     <td><%=h invoice.year %></td>
     <td><%=h invoice.month %></td>
-    <td><%=h invoice.billed_at %></td>
-    <td><%=h invoice.due_at %></td>
-    <td><%=h invoice.paid_at %></td>
-    <td><%=h invoice.payment_confirmed_at %></td>
+    <td><%=h invoice.billed_at.to_date %></td>
+    <td><% unless invoice.due_at.nil? %>
+      <%=h invoice.due_at.to_date %>
+    <% end %></td>
+    <td><% unless invoice.paid_at.nil? %>
+      <%=h invoice.paid_at.to_date %>
+    <% end %></td>
+    <td><% unless invoice.payment_confirmed_at.nil? %>
+      <%=h invoice.payment_confirmed_at.to_date %>
+    <% end %></td>
     <td><%= link_to 'Show', invoice %></td>
-    <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
-    <td><%= link_to 'Destroy', invoice, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if current_user.has_role?('administrator') %>
+      <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+      <td><%= link_to 'Destroy', invoice, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
